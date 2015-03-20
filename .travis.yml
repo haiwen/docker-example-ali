@@ -1,0 +1,12 @@
+sudo: required
+language: python
+
+services:
+  - docker
+
+install:
+  # Must put something here, or travis would ask us for requirments.txt
+  - echo "Nothing to install"
+
+script:
+  - ci/ci.sh
