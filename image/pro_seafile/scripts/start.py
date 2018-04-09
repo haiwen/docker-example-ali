@@ -18,7 +18,7 @@ from utils import (
     render_template, wait_for_mysql
 )
 from upgrade import check_upgrade
-from bootstrap import is_https, init_letsencrypt, generate_local_nginx_conf
+from bootstrap import is_https, init_letsencrypt, generate_local_nginx_conf, init_seafile_server
 
 
 shared_seafiledir = '/shared/seafile'
@@ -53,7 +53,10 @@ def main():
     wait_for_mysql()
 
     os.chdir(installdir)
+    init_seafile_server()
 
+    with open('/shared/seafile/ccnet/seafile.ini', 'w') as f:
+        f.write('/opt/seafile/seafile-data')
     call('{} start'.format(get_script('seafile.sh')))
     call('{} start'.format(get_script('seahub.sh')))
 

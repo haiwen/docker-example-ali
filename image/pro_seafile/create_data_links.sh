@@ -23,9 +23,6 @@ for d in ${dirs[*]}; do
     fi
 done
 
-seafileini=/shared/seafile/ccnet/seafile.ini
-rm -rf $seafileini && echo "/opt/seafile/seafile-data" > $seafileini
-
 
 current_version_dir=/opt/seafile/seafile-pro-server-${SEAFILE_VERSION}
 latest_version_dir=/opt/seafile/seafile-server-latest
@@ -35,9 +32,9 @@ if [[ -e /shared/license.txt ]]; then
     cp -f /shared/seafile-license.txt /opt/seafile/seafile-license.txt
 fi
 
-if [[ ! -e $latest_version_dir ]]; then
-    ln -sf $current_version_dir $latest_version_dir
-fi
+#if [[ ! -e $latest_version_dir ]]; then
+#    ln -sf $current_version_dir $latest_version_dir
+#fi
 
 if [[ ! -e $seahub_data_dir ]]; then
     mkdir -p $seahub_data_dir
