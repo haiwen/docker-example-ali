@@ -272,7 +272,7 @@ def update_version_stamp(version, fn=get_version_stamp_file()):
         fp.write(version + '\n')
 
 def wait_for_mysql():
-    while not exists('/var/run/mysqld/mysqld.sock'):
+    while not exists('/var/lib/mysql/mysql.sock'):
         logdbg('waiting for mysql server to be ready')
         time.sleep(2)
     logdbg('mysql server is ready')

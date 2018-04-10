@@ -106,6 +106,7 @@ def init_seafile_server():
         'MYSQL_USER_HOST': '127.0.0.1',
         # Default MariaDB root user has empty password and can only connect from localhost.
         'MYSQL_ROOT_PASSWD': '',
+        'PATH': '/usr/bin',
     }
 
     # Change the script to allow mysql root password to be empty

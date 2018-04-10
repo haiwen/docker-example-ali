@@ -62,3 +62,8 @@ if [[ ! -e /shared/logs/var-log ]]; then
     mv /var/log /shared/logs/var-log
 fi
 rm -rf /var/log && ln -sf /shared/logs/var-log /var/log
+
+nginxconf=/etc/nginx/sites-enabled
+if [[ ! -e $nginxconf ]]; then
+    mkdir -p $nginxconf
+fi
