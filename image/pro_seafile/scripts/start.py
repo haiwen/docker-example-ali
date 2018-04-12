@@ -15,7 +15,7 @@ import time
 
 from utils import (
     call, get_conf, get_install_dir, get_script, get_command_output,
-    render_template, wait_for_mysql
+    render_template
 )
 from upgrade import check_upgrade
 from bootstrap import is_https, init_letsencrypt, generate_local_nginx_conf, init_seafile_server
@@ -43,8 +43,6 @@ def watch_controller():
 
 def prepare():
     call('. /etc/init.d/create_data_links.sh')
-    call('. /etc/init.d/mysql_setup.sh')
-    call('adduser -u 1000 --no-create-home www-data')
     call('chown www-data:www-data /var/lib/nginx -R')
     call('/etc/service/nginx/run &')
     call('/usr/bin/memcached -u root >> /var/log/memcached.log 2>&1 &')
@@ -52,22 +50,13 @@ def prepare():
 
 def main():
     prepare()
-    if not exists(shared_seafiledir):
-        os.mkdir(shared_seafiledir)
-
     if is_https():
         init_letsencrypt()
     generate_local_nginx_conf()
     call('nginx -s reload')
-    call('mysqld_safe &')
-
-    wait_for_mysql()
 
     os.chdir(installdir)
-    init_seafile_server()
 
-    with open('/shared/seafile/ccnet/seafile.ini', 'w') as f:
-        f.write('/opt/seafile/seafile-data')
     call('{} start'.format(get_script('seafile.sh')))
     call('{} start'.format(get_script('seahub.sh')))
 
