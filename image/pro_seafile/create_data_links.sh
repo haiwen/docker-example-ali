@@ -22,7 +22,7 @@ for d in ${dirs[*]}; do
     fi
     src=/opt/seafile/$d
     if [[ ! -e $src ]]; then
-        ln -sf /opt/seafile/$d $src
+        ln -sf /shared/seafile/$d $src
     fi
 done
 
@@ -33,7 +33,7 @@ options_dirs=(
 for d in ${options_dirs[*]}; do
     src=/opt/seafile/$d
     if [[ ! -e $src ]]; then
-        ln -sf /opt/seafile/$d $src
+        ln -sf /shared/seafile/$d $src
     fi
 done
 
