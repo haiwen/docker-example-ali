@@ -27,20 +27,6 @@ generated_dir = '/bootstrap/generated'
 installdir = get_install_dir()
 topdir = dirname(installdir)
 
-def watch_controller():
-    maxretry = 4
-    retry = 0
-    while retry < maxretry:
-        controller_pid = get_command_output('ps aux | grep seafile-controller | grep -v grep || true').strip()
-        garbage_collector_pid = get_command_output('ps aux | grep /scripts/gc.sh | grep -v grep || true').strip()
-        if not controller_pid and not garbage_collector_pid:
-            retry += 1
-        else:
-            retry = 0
-        time.sleep(5)
-    print 'seafile controller exited unexpectedly.'
-    sys.exit(1)
-
 def main():
     call('. /etc/init.d/create_data_links.sh')
     os.chdir(installdir)
@@ -49,11 +35,7 @@ def main():
     call('{} start'.format(get_script('seahub.sh')))
 
     print 'seafile server is running now.'
-    try:
-        watch_controller()
-    except KeyboardInterrupt:
-        print 'Stopping seafile server.'
-        sys.exit(0)
+    sys.exit(0)
 
 if __name__ == '__main__':
     main()
