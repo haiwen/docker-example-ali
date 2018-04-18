@@ -41,20 +41,8 @@ def watch_controller():
     print 'seafile controller exited unexpectedly.'
     sys.exit(1)
 
-def prepare():
-    call('. /etc/init.d/create_data_links.sh')
-    call('chown www-data:www-data /var/lib/nginx -R')
-    call('/etc/service/nginx/run &')
-    call('/usr/bin/memcached -u root >> /var/log/memcached.log 2>&1 &')
-
-
 def main():
-    prepare()
-    if is_https():
-        init_letsencrypt()
-    generate_local_nginx_conf()
-    call('nginx -s reload')
-
+    call('. /etc/init.d/create_data_links.sh')
     os.chdir(installdir)
 
     call('{} start'.format(get_script('seafile.sh')))

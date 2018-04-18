@@ -58,14 +58,3 @@ if [[ ! -e /shared/logs/seafile ]]; then
     mkdir -p /shared/logs/seafile
 fi
 rm -rf /opt/seafile/logs && ln -sf /shared/logs/seafile /opt/seafile/logs
-
-
-if [[ ! -e /shared/logs/var-log ]]; then
-    mv /var/log /shared/logs/var-log
-fi
-rm -rf /var/log && ln -sf /shared/logs/var-log /var/log
-
-nginxconf=/etc/nginx/sites-enabled
-if [[ ! -e $nginxconf ]]; then
-    mkdir -p $nginxconf
-fi
